@@ -3,10 +3,14 @@ package com.example.chucknorrissays;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,6 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private String TAG = "MainActivity";
+    private TextToSpeech textToSpeech;
+    private String text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +30,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button refresh = findViewById(R.id.refresh);
-
+        Button tts = findViewById(R.id.tts);
+        tts.setVisibility(View.INVISIBLE);
 
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callAPI();
+                tts.setVisibility(View.VISIBLE);
+            }
+        });
 
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR){
+                    textToSpeech.setLanguage(Locale.US);
+                }
+            }
+        });
+
+        tts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("IVE BEEN CLICKED");
+                System.out.println(text);
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH,null);
             }
         });
 
@@ -53,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onResponse: SUCCESS");
                 TextView quote = findViewById(R.id.quoteTextView);
                 quote.setText(response.body().getValue());
+                text = quote.getText().toString();
+
             }
 
             @Override
