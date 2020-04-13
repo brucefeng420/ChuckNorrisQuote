@@ -7,6 +7,14 @@
     tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="417dp"
+        android:layout_height="590dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background" />
+
+    <ImageView
         android:id="@+id/imageView"
         android:layout_width="312dp"
         android:layout_height="348dp"
@@ -50,11 +58,10 @@
         android:layout_height="140dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
         android:rotation="340
 "
         android:text="𝓒𝓱𝓾𝓬𝓴 𝓝𝓸𝓻𝓻𝓲𝓼 𝓠𝓾𝓸𝓽𝓮𝓼"
-        android:textColor="#EA7EA3"
+        android:textColor="#FFE8F0"
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
