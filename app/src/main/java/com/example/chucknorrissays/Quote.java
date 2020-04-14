@@ -34,6 +34,8 @@ public class Quote implements Serializable {
      * No args constructor for use in serialization
      *
      */
+
+    //quote class generated through postwoman and JSON to java converter
     public Quote() {
     }
 
